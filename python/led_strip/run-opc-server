@@ -1,0 +1,5 @@
+#!/bin/bash
+
+cd /var/lib/cloud9/ENGI301/lightsaber/python/led_strip/
+
+./opc-server --config config.json
