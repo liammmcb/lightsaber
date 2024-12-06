@@ -4,4 +4,4 @@ cd /var/lib/cloud9/ENGI301/lightsaber/python/led_strip
 
 ./configure_pins.sh
 
-PYTHONPATH=/var/lib/cloud9/ENGI301/lightsaber/python/led_strip/ python3 led_strip_test.py
+PYTHONPATH=/var/lib/cloud9/ENGI301/lightsaber//python/led_strip/ python3 led_strip_test.py

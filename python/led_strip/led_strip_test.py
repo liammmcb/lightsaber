@@ -46,7 +46,7 @@ Background Information:
         https://github.com/Yona-Appletree/LEDscape.git
         https://github.com/zestyping/openpixelcontrol
 
-"""sys c
+"""
 
 import time
 import opc
