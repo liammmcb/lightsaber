@@ -62,8 +62,6 @@ def get_sensor_data():
     tot_accel = abs(math.sqrt(accel_x_scaled*accel_x_scaled + accel_y_scaled*accel_y_scaled + accel_z_scaled*accel_z_scaled) -1)
     tot_gyro = gyro_x_scaled + gyro_y_scaled + gyro_z_scaled 
     comb_accel_gyro = abs(tot_accel) + abs(tot_gyro/100)
-    
-    speaker_vol = min(comb_accel_gyro * 10, 100)
    
     global prev_tot_accel, flash_counter
     
@@ -76,12 +74,16 @@ def get_sensor_data():
     prev_tot_accel = tot_accel
     
     if difference >= 1:
-        flash_counter = 10  # Set flash for 10 iterations
+        flash_counter = 6  # Set flash for 6 iterations
     elif flash_counter > 0:
         flash_counter -= 1  # Decrement flash counter
 
     flash = flash_counter > 0  # Flash is True if counter is positive
     
+    if flash:
+        speaker_vol = 100  # Set to maximum volume during a flash
+    else:
+        speaker_vol = min(comb_accel_gyro * 10, 100)
     
     return {
         "accel_x": accel_x_scaled,
@@ -107,7 +109,7 @@ def main():
             data = get_sensor_data()
             print(
                 f"Accel: X={data['accel_x']:.2f}, Y={data['accel_y']:.2f}, Z={data['accel_z']:.2f} | "
-                #f"Gyro: X={data['gyro_x']:.2f}, Y={data['gyro_y']:.2f}, Z={data['gyro_z']:.2f} | "
+                f"Gyro: X={data['gyro_x']:.2f}, Y={data['gyro_y']:.2f}, Z={data['gyro_z']:.2f} | "
                 f"Totals: Accel={data['tot_accel']:.2f}, Gyro={data['tot_gyro']:.2f}, Comb={data['comb_accel_gyro']:.2f} | "
                 f"Difference: {data['difference']:.2f}, Peripherals: Volume={data['speaker_vol']:.2f} | "
                 f"Contact={'True' if data['difference'] >= 1 else 'False'}, Flash={'True' if data['flash'] else 'False'}"
